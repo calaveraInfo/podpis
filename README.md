@@ -33,6 +33,7 @@ Instalace standardními nástroji operačního systému:
 3. Podepsat stažený soubor pomocí `podani-fs-podpis-kartou.sh`.
 4. Odeslat podepsaný soubor pomocí `podani-fs-odeslani.sh`
 
+[opensc]: https://github.com/OpenSC/OpenSC/wiki
 [dpfs]: https://adisepo.mfcr.cz/adistc/adis/idpr_epo/epo2/uvod/vstup_expert.faces
 [curl]: https://curl.haxx.se/
 [openssl]: https://wiki.openssl.org/
