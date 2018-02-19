@@ -1,6 +1,8 @@
 #!/bin/bash
 # TODO: Moznost zadat dokument k podepsani jako parametr z prikazove radky
 # TODO: Moznost zadat cestu k certifikatu v systemove promenne
+# TODO: Nechat uzivatele dynamicky vybrat kartu a ctecku misto soucasneho hardcodovaneho 0:2
+# TODO: Pridat variantu s privatnim klicem v souboru
 
 DOCUMENT=`zenity --file-selection --title="Dokument k podpisu"`
 CERTIFICATE=`zenity --file-selection --title="Podpisový certifikát"`
