@@ -12,7 +12,7 @@ Toto je pokračování práce započaté v [tomto dokumentu][gist] poté, co za�
 
 Projekt nemá žádnou roadmapu, pracuji jen na věcech, které sám potřebuji a když je potřebuji. Všechny skripty zde jsou bez jakékoli záruky, aktuálně doporučuji je používat jen když máte dost znalostí, abyste sami dokázali pochopit co a jak dělají.
 
-Jakýkoli pull request s vylepšením nebo novými scénáři použití je výtaný.
+Jakýkoli pull request s vylepšením nebo novými scénáři použití je vítaný.
 
 # Prerekvizity
 
