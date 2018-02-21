@@ -17,21 +17,26 @@ Jakýkoli pull request s vylepšením nebo novými scénáři použití je víta
 # Instalace
 
 Tento repositář stačí pouze stáhnout, shellové skripty zde není potřeba nijak instalovat.
-Je ale potřeba instalovat nástroje, které jsou ze skriptů volány.
+Je ale potřeba instalovat nástroje, které jsou ze skriptů volány. Jejich výčet závisí
+na způsobu a scénáři použití.
 
 ## Prerekvizity
 
 - Uživatelské rozhraní (pro možnost použití skriptů formou wizardu): [Zenity][zenity]
     - Debian Stretch
+
             sudo apt install zenity
-- Kryptografie: [openssl][openssl]
+- Kryptografie (podepisování je potřeba skoro vždy): [openssl][openssl]
     - Debian Stretch
+
             sudo apt install openssl
-- CLI HTTP klient: [cURL][curl]
+- CLI HTTP klient (pro odesílání na elektronické podatelny): [cURL][curl]
     - Debian Stretch
+
             sudo apt install curl
-- Čipová karta: [OpenSC][opensc]
+- Čipová karta (pokud máte digitální podpis na čipové kartě): [OpenSC][opensc]
     - Debian Stretch (Podrobněji viz článek o provozování [Yubikey v Debian Jessie][yubikey])
+        
             sudo apt install pcscd pcsc-tools opensc opensc-pkcs11 libengine-pkcs11-openssl1.1
 
 
