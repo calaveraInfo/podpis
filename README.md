@@ -14,18 +14,28 @@ Projekt nemá žádnou roadmapu, pracuji jen na věcech, které sám potřebuji 
 
 Jakýkoli pull request s vylepšením nebo novými scénáři použití je vítaný.
 
-# Prerekvizity
+# Instalace
 
-- Uživatelské rozhraní: [Zenity][zenity].
+Tento repositář stačí pouze stáhnout, shellové skripty zde není potřeba nijak instalovat.
+Je ale potřeba instalovat nástroje, které jsou ze skriptů volány.
+
+## Prerekvizity
+
+- Uživatelské rozhraní (pro možnost použití skriptů formou wizardu): [Zenity][zenity]
+    - Debian Stretch
+            sudo apt install zenity
 - Kryptografie: [openssl][openssl]
+    - Debian Stretch
+            sudo apt install openssl
 - CLI HTTP klient: [cURL][curl]
+    - Debian Stretch
+            sudo apt install curl
 - Čipová karta: [OpenSC][opensc]
+    - Debian Stretch (Podrobněji viz článek o provozování [Yubikey v Debian Jessie][yubikey])
+            sudo apt install pcscd pcsc-tools opensc opensc-pkcs11 libengine-pkcs11-openssl1.1
 
-Instalace standardními nástroji operačního systému:
 
-    sudo apt install zenity openssl libengine-pkcs11-openssl1.1 curl pcscd pcsc-tools opensc opensc-pkcs11
-
-# Scénáře
+# Použití
 ## Podání elektronického formuláře na Finanční Správu
 
 1. Vyplnit formulář na [daňovém portálu FS][dpfs].
@@ -33,6 +43,7 @@ Instalace standardními nástroji operačního systému:
 3. Podepsat stažený soubor pomocí `podani-fs-podpis-kartou.sh`.
 4. Odeslat podepsaný soubor pomocí `podani-fs-odeslani.sh`
 
+[yubikey]: https://calavera.info/v3/blog/2017/02/26/yubikey-v-debian-jessie.html
 [opensc]: https://github.com/OpenSC/OpenSC/wiki
 [dpfs]: https://adisepo.mfcr.cz/adistc/adis/idpr_epo/epo2/uvod/vstup_expert.faces
 [curl]: https://curl.haxx.se/
