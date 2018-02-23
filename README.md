@@ -12,13 +12,42 @@ Toto je pokračování práce započaté v [tomto dokumentu][gist] poté, co za�
 
 Aktuálně je projekt v experimentální fázi, doporučuji ho používat jen když máte dost znalostí, abyste sami dokázali pochopit co a jak se dělá. Všechny skripty zde jsou bez jakékoli záruky.
 
-Projekt nemá žádnou roadmapu, pracuji jen na věcech, které sám potřebuji a když je potřebuji. Nahlášené bugy a náměty na vylepšení budou brány v potaz.
+Projekt nemá žádnou roadmapu, pracuji jen na věcech, které sám potřebuji a když je potřebuji. Nahlášené bugy a náměty na vylepšení ale budou brány v potaz.
 
 Jakýkoli pull request s opravou, vylepšením nebo novými scénáři použití je vítaný.
 
 # Nutné minimum vědomostí o elektronickém podpisu
 
-...
+Digitální podpis se skládá ze dvou částí (říká se jim klíče):
+
+- Privátní klíč: tento klíč se nesmí dostat do ruky nikomu jinému, než majiteli podpisu.
+- Veřejný klíč: tento klíč je veřejně známá informace.
+
+Základem důvěry v digitální podpis je tzv. certifikát, což je dokument (soubor), který obsahuje veřejný klíč a k němu informaci o fyzické identitě toho, kdo se s ním podepisuje. Certifikátem se tento dokument stává ve chvíli, kdy je digitálně podepsán nějakou všeobecně známou autoritou. Komukoli stačí, aby znal a důvěřoval podpisu jedné takové všeobecně známé autority a může pak důvěřovat ve fyzickou identitu libovolného člověka, který se prokáže certifikátem podepsaným takovou autoritou. Tomuto schématu tranzitivního přenášení důvěry od autorit k neznámým cizincům se říká Public Key Infrastructure (PKI).
+
+Digitální podpis je pak de facto jen připojení veřejného klíče k podepisovanému souboru. Specialita toho připojení (a celá magie digitálního podpisu) je v tom, že je matematicky zajištěno, že ho tím "správným" způsobem dokáže provést jen ten, kdo vlastní odpovídající privátní klíč.
+
+Dohromady je to tedy takto: nikdo jiný než majitel privátního klíče nemůže správně připojit k dokumentu veřejný klíč a protože na fyzickou identitu majitele toho veřejného klíče vystavila důvěryhodná autorita certifikát, věříme, že daný soubor byl vědomě podepsán konkrétním člověkem.
+
+## Úložiště klíčů
+
+Z předchozího je vidět, že celá důvěra stojí na závazku majitele podpisu za žádných okolností nevydat nikomu jinému svůj privátní klíč. Proto je uložení privátního klíče nejdůležitější pro bezpečnost digitálního podpisu. Principiálně existují tyto možnosti:
+
+- Uložit privátní klíč do souboru. V takovém případě musí být takový soubor zaheslovaný (podobně jako například zaheslovaný zip) a při každém použití klíče (podpisu) je potřeba heslo zadat. Každý soubor je ale z principu kdykoli možné nepozorovaně zkopírovat a heslo je možné odposlechnout a proto existuje bezpečnější varianta:
+- Uložit privátní klíč na čipovou kartu. Bezpečnost této varianty spočívá v tom, že privátní klíč klíč nikdy čipovou kartu neopustí - celý podpis probíhá přímo na kartě a počítač dostane až výsledek podpisu, nikoli samotný klíč. K možnosti podepsat něco něčím jménem je proto potřeba fyzicky čipovou kartu zcizit, což se dá velmi rychle zjistit a je pak možné podpis odvolat (takzvaně revokovat certifikát).
+- Úložiště certifikátů a klíčů může být systémová služba operačního systému (například ve Windows), která poskytuje jednotný přístup pro různé druhy úložišť a rozdíly mezi nimi se snaží zakrýt. Při použití open source nástrojů je ale většinou potřeba explicitně zadat kde a jak je privátní klíč a certifikáty uloženy.
+
+## Vytvoření podpisu
+
+Autority, kterým úředně důvěřuje český stát, jsou vyhlašovány [vyhláškou][autority]. Zřídit si kvalifikovaný podpis u nich znamená principálně vždy následující kroky:
+
+1. Vygenerovat dvojici privátního a veřejného klíče.
+2. Vytvořit žádost o vystavení certifikátu. Žádost je prakticky přímo onen certifikát (dokument s veřejným klíčem a fyzickou identitou k němu připojenou), který autorita jen podepíše.
+3. Předat žádost autoritě.
+4. Ověřit svojí totožnost udávanou v žádosti na ověřovacím místě autority.
+5. Autorita žádost podepíše, tím z ní udělá plnohodnotný certifikát a ten vystaví veřejně ve svém registru a případně zašle zpět žadateli.
+
+Tyto kroky mohou být poskládány do různých scénářů. Je možné například na web stránkách autority jednou akcí absolvovat kroky 1-3 dohromady. Klíče se ale mohou generovat i zcela offline a žádost je možné předat například na USB disku, pak jsou většinou spojeny kroky 3-4. Za pozornost také stojí, že autorita z principu nemusí znát privátní klíč (certifikát vystavuje na veřejný klíč), ale může úschovu privátního klíče nabízet jako doplňkovou službu. Například pro případ jeho ztráty nebo protože službu nabízejí včetně vydání čipové karty s privátním klíčem. Možností jak kroky poskládat je prostě mnoho, ale vždy se budou nějak mapovat na výše uvedený seznam.
 
 # Instalace
 
@@ -50,7 +79,7 @@ na způsobu a scénáři použití:
 
 Skripty je možné spustit:
 
-- Se všemi potřebnými parametry z příkazové řádky. Skript pak nemá žádné grafické rozhraní kromě zadávání hesel nebo PINů. (zatím nedokončeno)
+- Se všemi potřebnými parametry z příkazové řádky. Skript pak nemá žádné grafické rozhraní kromě zadávání hesel nebo PINů. (zatím nerealizováno)
 - Bez parametrů nebo pouze s částí potřebných parametrů. Skript pak zjišťuje chybějící informace pomocí grafického rozhraní typu wizard.
 
 Přestože mají skripty ve wizard módu grafické rozhraní, je potřeba je spouštět z příkazové řádky,
@@ -109,6 +138,7 @@ Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`
 3. Podepsat stažený soubor pomocí `podani-fs-podpis-kartou.sh`.
 4. Odeslat podepsaný soubor pomocí `podani-fs-odeslani.sh`
 
+[autority]: http://www.mvcr.cz/clanek/prehled-kvalifikovanych-poskytovatelu-certifikacnich-sluzeb-a-jejich-kvalifikovanych-sluzeb.aspx
 [yubikey]: https://calavera.info/v3/blog/2017/02/26/yubikey-v-debian-jessie.html
 [opensc]: https://github.com/OpenSC/OpenSC/wiki
 [dpfs]: https://adisepo.mfcr.cz/adistc/adis/idpr_epo/epo2/uvod/vstup_expert.faces
