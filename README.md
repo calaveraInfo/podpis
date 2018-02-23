@@ -16,6 +16,10 @@ Projekt nemá žádnou roadmapu, pracuji jen na věcech, které sám potřebuji 
 
 Jakýkoli pull request s opravou, vylepšením nebo novými scénáři použití je vítaný.
 
+# Nutné minimum vědomostí o elektronickém podpisu
+
+...
+
 # Instalace
 
 Tento repositář stačí pouze stáhnout, shellové skripty zde není potřeba nijak instalovat.
@@ -59,6 +63,42 @@ protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány
 ### `podani-fs-podpis-kartou.sh`
 
 ...
+
+#### Identifikátor klíče
+
+Při podpisu čipovou kartou je potřeba zadat identifikátor klíče, který se má použít.
+Tento identifikátor může mít následující formáty:
+
+>     <id>
+>     <slot>:<id>
+>     id_<id>
+>     slot_<slot>-id_<id>
+>     label_<label>
+>     slot_<slot>-label_<label>
+
+Kde
+
+- `<slot>` je číslo slotu čtečky karty. To je možné zjistit příkazem `opensc-tool --list-readers`, jehož výstup vypadá ukázkově takto (číslo slotu je číslo ve sloupci Nr.):
+    
+    >     # Detected readers (pcsc)
+    >     Nr.  Card  Features  Name
+    >     0    Yes             Yubico Yubikey 4 OTP+U2F+CCID 00 00
+- `<id>` je identifikátor klíče na kartě jako hexadecimální řetězec. Je možné jej zjistit příkazem `pkcs15-tool --list-keys`, jehož výstup vypadá ukázkově takto (identifikátor klíče je položka "ID"):
+    
+    >     ...
+    >     Private RSA Key [SIGN key]
+	>     Object Flags   : [0x1], private
+	>     Usage          : [0x20E], decrypt, sign, signRecover, nonRepudiation
+	>     Access Flags   : [0x1D], sensitive, alwaysSensitive, neverExtract, local
+	>     ModLength      : 2048
+	>     Key ref        : 156 (0x9C)
+	>     Native         : yes
+	>     Auth ID        : 01
+	>     ID             : 02
+	>     ...
+- `<label>` je textový popisek klíče (co přesně to znamená a jak to zjistit a použít se nepodařilo dohledat)
+
+Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`.
 
 ### `podani-fs-odeslani.sh`
 
