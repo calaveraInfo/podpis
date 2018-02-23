@@ -85,9 +85,9 @@ Skripty je možné spustit:
 Přestože mají skripty ve wizard módu grafické rozhraní, je potřeba je spouštět z příkazové řádky,
 protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány přímo v terminálu.
 
-## `podani-fs-podpis-kartou.sh`
+## `podani-fs-podpis.sh`
 
-...
+Podepíše dokument pro podání na elektronickou podatelnu Finanční Správy.
 
 ### Identifikátor klíče na kartě
 
@@ -127,7 +127,7 @@ Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`
 
 ## `podani-fs-odeslani.sh`
 
-...
+Odešle dokument na elektronickou podatelnu Finanční Správy.
 
 ## Popis celých scénářů
 
