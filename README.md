@@ -24,16 +24,14 @@ Jakýkoli pull request s opravou, vylepšením nebo novými scénáři použití
 
 Tento repositář stačí pouze stáhnout, shellové skripty zde není potřeba nijak instalovat.
 Je ale potřeba instalovat nástroje, které jsou ze skriptů volány. Jejich výčet závisí
-na způsobu a scénáři použití.
-
-## Prerekvizity
+na způsobu a scénáři použití:
 
 - Uživatelské rozhraní (pro možnost použití skriptů formou wizardu): [Zenity][zenity]
     - Debian Jessie, Stretch
 
             sudo apt install zenity
 - Podepisovani (potřeba skoro vždy): [openssl][openssl], zip
-    - Debian Jessi, Stretch
+    - Debian Jessie, Stretch
 
             sudo apt install openssl zip
 - CLI HTTP klient (pro odesílání na elektronické podatelny): [cURL][curl]
@@ -50,8 +48,6 @@ na způsobu a scénáři použití.
 
 # Použití
 
-## Jednotlivé skripty
-
 Skripty je možné spustit:
 
 - Se všemi potřebnými parametry z příkazové řádky. Skript pak nemá žádné grafické rozhraní kromě zadávání hesel nebo PINů. (zatím nedokončeno)
@@ -60,11 +56,11 @@ Skripty je možné spustit:
 Přestože mají skripty ve wizard módu grafické rozhraní, je potřeba je spouštět z příkazové řádky,
 protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány přímo v terminálu.
 
-### `podani-fs-podpis-kartou.sh`
+## `podani-fs-podpis-kartou.sh`
 
 ...
 
-#### Identifikátor klíče
+### Identifikátor klíče na kartě
 
 Při podpisu čipovou kartou je potřeba zadat identifikátor klíče, který se má použít.
 Tento identifikátor může mít následující formáty:
@@ -100,11 +96,11 @@ Kde
 
 Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`.
 
-### `podani-fs-odeslani.sh`
+## `podani-fs-odeslani.sh`
 
 ...
 
-## Celé scénáře
+## Popis celých scénářů
 
 ### Podání elektronického formuláře na Finanční Správu
 
