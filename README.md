@@ -10,9 +10,11 @@ Toto je pokračování práce započaté v [tomto dokumentu][gist] poté, co za�
 
 # Status a kontribuce
 
-Projekt nemá žádnou roadmapu, pracuji jen na věcech, které sám potřebuji a když je potřebuji. Všechny skripty zde jsou bez jakékoli záruky, aktuálně doporučuji je používat jen když máte dost znalostí, abyste sami dokázali pochopit co a jak dělají.
+Aktuálně je projekt v experimentální fázi, doporučuji ho používat jen když máte dost znalostí, abyste sami dokázali pochopit co a jak se dělá. Všechny skripty zde jsou bez jakékoli záruky.
 
-Jakýkoli pull request s vylepšením nebo novými scénáři použití je vítaný.
+Projekt nemá žádnou roadmapu, pracuji jen na věcech, které sám potřebuji a když je potřebuji. Nahlášené bugy a náměty na vylepšení budou brány v potaz.
+
+Jakýkoli pull request s opravou, vylepšením nebo novými scénáři použití je vítaný.
 
 # Instalace
 
@@ -23,25 +25,48 @@ na způsobu a scénáři použití.
 ## Prerekvizity
 
 - Uživatelské rozhraní (pro možnost použití skriptů formou wizardu): [Zenity][zenity]
-    - Debian Stretch
+    - Debian Jessie, Stretch
 
             sudo apt install zenity
-- Kryptografie (podepisování je potřeba skoro vždy): [openssl][openssl]
-    - Debian Stretch
+- Podepisovani (potřeba skoro vždy): [openssl][openssl], zip
+    - Debian Jessi, Stretch
 
-            sudo apt install openssl
+            sudo apt install openssl zip
 - CLI HTTP klient (pro odesílání na elektronické podatelny): [cURL][curl]
-    - Debian Stretch
+    - Debian Jessie, Stretch
 
             sudo apt install curl
-- Čipová karta (pokud máte digitální podpis na čipové kartě): [OpenSC][opensc]
-    - Debian Stretch (Podrobněji viz článek o provozování [Yubikey v Debian Jessie][yubikey])
-        
-            sudo apt install pcscd pcsc-tools opensc opensc-pkcs11 libengine-pkcs11-openssl1.1
+- Čipová karta (pokud je digitální podpis na čipové kartě): [OpenSC][opensc]
+    - Debian Stretch
 
+            sudo apt install pcscd pcsc-tools opensc opensc-pkcs11 libengine-pkcs11-openssl1.1
+    - Debian Jessie (Podrobněji také viz článek o provozování [Yubikey v Debian Jessie][yubikey])
+
+            sudo apt install pcscd pcsc-tools opensc opensc-pkcs11 libengine-pkcs11-openssl
 
 # Použití
-## Podání elektronického formuláře na Finanční Správu
+
+## Jednotlivé skripty
+
+Skripty je možné spustit:
+
+- Se všemi potřebnými parametry z příkazové řádky. Skript pak nemá žádné grafické rozhraní kromě zadávání hesel nebo PINů. (zatím nedokončeno)
+- Bez parametrů nebo pouze s částí potřebných parametrů. Skript pak zjišťuje chybějící informace pomocí grafického rozhraní typu wizard.
+
+Přestože mají skripty ve wizard módu grafické rozhraní, je potřeba je spouštět z příkazové řádky,
+protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány přímo v terminálu.
+
+### `podani-fs-podpis-kartou.sh`
+
+...
+
+### `podani-fs-odeslani.sh`
+
+...
+
+## Celé scénáře
+
+### Podání elektronického formuláře na Finanční Správu
 
 1. Vyplnit formulář na [daňovém portálu FS][dpfs].
 2. Zvolit v menu formuláře možnost "Uložit pracovní verzi".
