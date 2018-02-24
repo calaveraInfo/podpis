@@ -48,7 +48,7 @@ Autority, kterým úředně důvěřuje český stát, jsou vyhlašovány [vyhl�
 4. Prokázat svojí totožnost udávanou v žádosti na ověřovacím místě autority.
 5. Autorita žádost podepíše, tím z ní udělá plnohodnotný certifikát a ten vystaví veřejně ve svém registru (a případně zašle zpět žadateli).
 
-Tyto kroky mohou být realizovány různě. Je možné například na web stránkách autority jednou akcí absolvovat kroky 1-3 dohromady. Klíče se ale mohou generovat i zcela offline a žádost je možné předat třeba na USB disku, pak jsou většinou spojeny kroky 3-4. Za pozornost také stojí, že autorita z principu nemusí znát privátní klíč (certifikát vystavuje na veřejný klíč), ale může úschovu privátního klíče nabízet jako doplňkovou službu. Například pro případ jeho ztráty nebo protože službu nabízí včetně vydání čipové karty s podpisem. Možností jak kroky poskládat je prostě mnoho, ale vždy se budou nějak mapovat na výše uvedený seznam.
+Tyto kroky mohou být realizovány různě. Je možné například na web stránkách autority jednou akcí absolvovat kroky 1-3 dohromady. Klíče se ale mohou generovat i zcela offline a žádost je možné předat třeba na USB disku, pak jsou většinou spojeny kroky 3-5 do jedné osobní návštěvy. Za pozornost také stojí, že autorita z principu nepotřebuje znát privátní klíč (certifikát vystavuje na veřejný klíč), ale může úschovu privátního klíče nabízet jako doplňkovou službu. Například pro případ jeho ztráty nebo protože službu nabízí včetně vydání čipové karty s podpisem. Možností jak kroky poskládat je prostě mnoho, ale vždy se budou nějak mapovat na výše uvedený seznam.
 
 # Instalace
 
@@ -89,6 +89,8 @@ protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány
 ## `podani-fs-podpis.sh`
 
 Podepíše dokument pro podání na elektronickou podatelnu Finanční Správy.
+Výsledný soubor bude umístěn ve stejném adresáři jako původní, jen s příponou `.p7s`,
+případně `.zip.p7s`.
 
 ### Identifikátor klíče na kartě
 
@@ -129,6 +131,8 @@ Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`
 ## `podani-fs-odeslani.sh`
 
 Odešle dokument na elektronickou podatelnu Finanční Správy.
+Nejdřív je soubor odeslán k otestování, výsledek je zobrazen uživateli a až pak
+je uživatel dotázán, zda se má dokument opravdu podat.
 
 ## Popis celých scénářů
 

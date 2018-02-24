@@ -1,14 +1,21 @@
 #!/bin/bash
-# TODO: Prazdny email odebere polozku z url uplne
-# TODO: Moznost defaultniho emailu v systemove promenne
-# TODO: Oba mody pustit vzdycky, vystup z validace nejdriv zobrazit uzivateli a nechat jej rozhodnout, zda se ma pokracovat s opravdovym odeslanim
+# TODO: Prazdny email odebere jeho polozku z url uplne
+# TODO: Moznost zadat email jako vstupni parametr
 # TODO: Moznost zadat cestu k dokumentu jako vstupni parametr
 
-SIGNED_DOCUMENT=`zenity --file-selection --title="Podepsaný dokument"`
+SIGNED_DOCUMENT=`zenity --file-selection --title="Podepsaný dokument ve formátu P7S"`
 RESULT="$(dirname $SIGNED_DOCUMENT)/potvrzeni-$(basename $SIGNED_DOCUMENT)"
-
-MODE=$(zenity --list --radiolist  --print-column=3 --title="Režim odeslání" --text="Vyberte režim odeslání dokumentu" --column="" --column="Režim" --column="" TRUE Validace "&test=1" FALSE Odeslání "")
 
 EMAIL=$(zenity --entry --title="Email" --text="Zadejte email, kam mají chodit informace o zpracování")
 
-curl -X POST -H "content-type:application/octet-stream" --data-binary @$SIGNED_DOCUMENT "https://adisepo.mfcr.cz/adistc/epo_podani?email=$EMAIL$MODE" > $RESULT
+echo Odesílám dokument k otestování
+echo "curl -X POST -H \"content-type:application/octet-stream\" --data-binary \"@$SIGNED_DOCUMENT\" \"https://adisepo.mfcr.cz/adistc/epo_podani?email=$EMAIL&test=1\""
+echo 
+curl -X POST -H "content-type:application/octet-stream" --data-binary "@$SIGNED_DOCUMENT" "https://adisepo.mfcr.cz/adistc/epo_podani?email=$EMAIL&test=1"
+
+if $(zenity --question --text="Má se dokument opravdu odeslat do podatelny?\n(Před potvrzením zkontrolujte prosím výsledek testovacího odeslání).") ; then
+	echo Odesílám dokument na podatelnu FS
+	echo "curl -X POST -H \"content-type:application/octet-stream\" --data-binary \"@$SIGNED_DOCUMENT\" \"https://adisepo.mfcr.cz/adistc/epo_podani?email=$EMAIL\" > $RESULT"
+	echo 
+	curl -X POST -H "content-type:application/octet-stream" --data-binary "@$SIGNED_DOCUMENT" "https://adisepo.mfcr.cz/adistc/epo_podani?email=$EMAIL" > $RESULT
+fi

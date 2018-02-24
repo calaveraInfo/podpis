@@ -23,7 +23,7 @@ else
 fi
 
 if $(zenity --question --text="Má se dokument před podpisem komprimovat?\nNěkterá podání se komprimovat nemusí (přiznání DPH),\nněkterá jsou komprimovaná povinně (kontrolní hlášení).") ; then
-	echo Running zip command
+	echo Komprimuji soubor k podepsání pomocí příkazu zip
 	echo zip --junk-paths --compression-method deflate "$DOCUMENT.zip" "$DOCUMENT"
 	echo 
 
@@ -39,7 +39,7 @@ else
 	SMIME="smime -sign -in \"$DOCUMENT\" $COMPRESS -out \"$DOCUMENT.p7s\" -inkey \"$KEYID\" -signer \"$CERTIFICATE\" -outform DER -nodetach"
 fi
 
-echo Running openssl commands
+echo Podepisuji soubor pomocí openssl příkazů
 echo $ENGINE
 echo $SMIME
 echo
