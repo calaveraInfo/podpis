@@ -1,6 +1,19 @@
 #!/bin/bash
 # TODO: Moznost zadat dokument k podepsani a certifikat jako parametr z prikazove radky
-# TODO: Pridat dry-run mod
+# TODO: Pridat help
+
+DRY_RUN=false
+
+while getopts ":d" opt; do
+  case $opt in
+    d)
+      DRY_RUN=true
+      ;;
+    \?)
+      echo "Nesprávný parametr: -$OPTARG" >&2
+      ;;
+  esac
+done
 
 DOCUMENT=`zenity --file-selection --title="Dokument k podpisu"`
 CERTIFICATE=`zenity --file-selection --title="Podpisový certifikát v PEM formátu"`
@@ -27,7 +40,9 @@ if $(zenity --question --text="Má se dokument před podpisem komprimovat?\nNěk
 	echo zip --junk-paths --compression-method deflate "$DOCUMENT.zip" "$DOCUMENT"
 	echo 
 
-	zip --junk-paths --compression-method deflate "$DOCUMENT.zip" "$DOCUMENT"
+	if [ "$DRY_RUN" = false ] ; then
+		zip --junk-paths --compression-method deflate "$DOCUMENT.zip" "$DOCUMENT"
+	fi
 
 	COMPRESS="-binary"
 	DOCUMENT="$DOCUMENT.zip"
@@ -44,8 +59,9 @@ echo $ENGINE
 echo $SMIME
 echo
 
-openssl <<HereDoc
-$ENGINE
-$SMIME
+if [ "$DRY_RUN" = false ] ; then
+	openssl <<HereDoc
+	$ENGINE
+	$SMIME
 HereDoc
-echo
+fi

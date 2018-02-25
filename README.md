@@ -86,6 +86,10 @@ Skripty je možné spustit:
 Přestože mají skripty ve wizard módu grafické rozhraní, je potřeba je spouštět z příkazové řádky,
 protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány přímo v terminálu.
 
+## Dry run mód
+
+Všechny skripty je možné spustit s parametrem `-d`, který způsobí, že skript žádné příkazy neprovádí, ale pouze vypíše v terminálu jejich přesné znění. Není pak potřeba instalovat žádný nástroj (kromě Zenity na uživatelské rozhraní).
+
 ## `podani-fs-podpis.sh`
 
 Podepíše dokument pro podání na elektronickou podatelnu Finanční Správy.
