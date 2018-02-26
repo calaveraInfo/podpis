@@ -2,10 +2,40 @@
 # TODO: Moznost zadat dokument k podepsani a certifikat jako parametr z prikazove radky
 # TODO: Pridat help
 
+PROGRAM="${0##*/}"
+
+cmd_help() {
+	cat <<HereDoc
+Podepíše soubor pro podání na elektronickou podatelnu Finanční Správy.
+Podepsaný soubor bude umístěn ve stejném adresáři jako původní
+a se stejným jménem jen navíc s příponou `.p7s`, případně `.zip.p7s`.
+
+Použití:
+    $PROGRAM
+        Spustí program v režimu grafického průvodce.
+    $PROGRAM [parametry] [soubor k podepsání]
+        Zatím neimplementováno.
+    $PROGRAM -d
+    	Dry run mód. Vypisuje všechny prováděné příkazy
+    	na standardní výstup, ale nevykonává je.
+
+Více informací viz README.md soubor.
+HereDoc
+}
+
+if [ "$1" = "--help" ]; then
+	cmd_help
+	exit 0
+fi
+
 DRY_RUN=false
 
-while getopts ":d" opt; do
+while getopts "dh" opt; do
   case $opt in
+  	h)
+    	cmd_help
+		exit 0
+      ;;
     d)
       DRY_RUN=true
       ;;
@@ -65,3 +95,4 @@ if [ "$DRY_RUN" = false ] ; then
 	$SMIME
 HereDoc
 fi
+

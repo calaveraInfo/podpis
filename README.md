@@ -53,8 +53,7 @@ Tyto kroky mohou být realizovány různě. Je možné například na web strán
 # Instalace
 
 Tento repositář stačí pouze stáhnout, shellové skripty zde není potřeba nijak instalovat.
-Je ale potřeba instalovat nástroje, které jsou ze skriptů volány. Jejich výčet závisí
-na způsobu a scénáři použití:
+Je ale potřeba instalovat nástroje, které jsou ze skriptů volány (s výjimkou dry run módu, viz níže). Jejich výčet závisí na způsobu a scénáři použití:
 
 - Uživatelské rozhraní (pro možnost použití skriptů formou wizardu): [Zenity][zenity]
     - Debian Jessie, Stretch
@@ -90,13 +89,7 @@ protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány
 
 Všechny skripty je možné spustit s parametrem `-d`, který způsobí, že skript žádné příkazy neprovádí, ale pouze vypíše v terminálu jejich přesné znění. Není pak potřeba instalovat žádný nástroj (kromě Zenity na uživatelské rozhraní).
 
-## `podani-fs-podpis.sh`
-
-Podepíše dokument pro podání na elektronickou podatelnu Finanční Správy.
-Výsledný soubor bude umístěn ve stejném adresáři jako původní, jen s příponou `.p7s`,
-případně `.zip.p7s`.
-
-### Identifikátor klíče na kartě
+## Identifikátor klíče na kartě
 
 Při podpisu čipovou kartou je potřeba zadat identifikátor klíče, který se má použít.
 Tento identifikátor může mít následující formáty:
@@ -132,12 +125,6 @@ Kde
 
 Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`.
 
-## `podani-fs-odeslani.sh`
-
-Odešle dokument na elektronickou podatelnu Finanční Správy.
-Nejdřív je soubor odeslán k otestování, výsledek je zobrazen uživateli a až pak
-je uživatel dotázán, zda se má dokument opravdu podat.
-
 ## Popis celých scénářů
 
 ### Podání elektronického formuláře na Finanční Správu
@@ -147,6 +134,10 @@ je uživatel dotázán, zda se má dokument opravdu podat.
 3. Podepsat stažený soubor pomocí `podani-fs-podpis-kartou.sh`.
 4. Odeslat podepsaný soubor pomocí `podani-fs-odeslani.sh`
 
+[cssz osvc]: http://www.cssz.cz/cz/e-podani/ke-stazeni/e-podani-OSVC/e-podani-OSVC.htm
+[cssz osvc dev]: http://www.cssz.cz/cz/e-podani/pro-vyvojare/definice-druhu-e-podani/osvc/
+[dokumentace cssz]: http://www.cssz.cz/cz/e-podani/pro-vyvojare/
+[dokumentace fs]: http://adisspr.mfcr.cz/adistc/adis/idpr_pub/dpr_info/dokumentace.faces
 [autority]: http://www.mvcr.cz/clanek/prehled-kvalifikovanych-poskytovatelu-certifikacnich-sluzeb-a-jejich-kvalifikovanych-sluzeb.aspx
 [yubikey]: https://calavera.info/v3/blog/2017/02/26/yubikey-v-debian-jessie.html
 [opensc]: https://github.com/OpenSC/OpenSC/wiki
