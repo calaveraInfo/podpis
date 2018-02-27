@@ -59,7 +59,7 @@ Je ale potřeba instalovat nástroje, které jsou ze skriptů volány (s výjimk
     - Debian Jessie, Stretch
 
             sudo apt install zenity
-- Podepisovani (potřeba skoro vždy): [openssl][openssl], zip
+- Podepisování a jiná kryptografie (potřeba skoro vždy): [openssl][openssl], zip
     - Debian Jessie, Stretch
 
             sudo apt install openssl zip
@@ -77,6 +77,8 @@ Je ale potřeba instalovat nástroje, které jsou ze skriptů volány (s výjimk
 
 # Použití
 
+Všechny skripty je možné spustit s parametrem `--help`, který vypíše jejich nápovědu.
+
 Skripty je možné spustit:
 
 - Se všemi potřebnými parametry z příkazové řádky. Skript pak nemá žádné grafické rozhraní kromě zadávání hesel nebo PINů. (zatím nerealizováno)
@@ -87,12 +89,12 @@ protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány
 
 ## Dry run mód
 
-Všechny skripty je možné spustit s parametrem `-d`, který způsobí, že skript žádné příkazy neprovádí, ale pouze vypíše v terminálu jejich přesné znění. Není pak potřeba instalovat žádný nástroj (kromě Zenity na uživatelské rozhraní).
+Všechny skripty je možné spustit s parametrem `-d`, který způsobí, že skript žádné příkazy neprovádí, ale pouze vypíše v terminálu jejich přesné znění. Není pak potřeba instalovat žádný nástroj (kromě Zenity na uživatelské rozhraní) a zkopírované příkazy je pak možné použít i na úplně jiném stroji.
 
 ## Identifikátor klíče na kartě
 
-Při podpisu čipovou kartou je potřeba zadat identifikátor klíče, který se má použít.
-Tento identifikátor může mít následující formáty:
+Při použití čipové karty je potřeba zadat identifikátor klíče, který se má použít.
+Tento identifikátor může mít jeden z následujících formátů:
 
 >     <id>
 >     <slot>:<id>
