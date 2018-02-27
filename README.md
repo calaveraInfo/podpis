@@ -79,12 +79,7 @@ Je ale potřeba instalovat nástroje, které jsou ze skriptů volány (s výjimk
 
 Všechny skripty je možné spustit s parametrem `--help`, který vypíše jejich nápovědu.
 
-Skripty je možné spustit:
-
-- Se všemi potřebnými parametry z příkazové řádky. Skript pak nemá žádné grafické rozhraní kromě zadávání hesel nebo PINů. (zatím nerealizováno)
-- Bez parametrů nebo pouze s částí potřebných parametrů. Skript pak zjišťuje chybějící informace pomocí grafického rozhraní typu wizard.
-
-Přestože mají skripty ve wizard módu grafické rozhraní, je potřeba je spouštět z příkazové řádky,
+Přestože mají skripty ve wizard módu grafické rozhraní, je potřeba je vždy spouštět z příkazové řádky,
 protože z bezpečnostních důvodů jsou případná hesla nebo PINy zadávány přímo v terminálu.
 
 ## Dry run mód

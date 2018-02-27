@@ -1,6 +1,4 @@
 #!/bin/bash
-# TODO: Moznost zadat dokument k podepsani a certifikat jako parametr z prikazove radky
-# TODO: Pridat help
 
 PROGRAM="${0##*/}"
 
@@ -11,13 +9,15 @@ Podepsaný soubor bude umístěn ve stejném adresáři jako původní
 a se stejným jménem jen navíc s příponou `.p7s`, případně `.zip.p7s`.
 
 Použití:
-    $PROGRAM
-        Spustí program v režimu grafického průvodce.
     $PROGRAM [parametry] [soubor k podepsání]
-        Zatím neimplementováno.
-    $PROGRAM -d
+    	Žádný parametr ani samotný podepisovaný soubor není povinný.
+        Hodnoty potřebných parametrů nezadaných z příkazové
+        řádky budou zjištěny otázkami v grafickém průvodci.
+    $PROGRAM -d [parametry] [soubor k podepsání]
     	Dry run mód. Vypisuje všechny prováděné příkazy
     	na standardní výstup, ale nevykonává je.
+Parametry:
+    -c certifikát: Soubor v PEM formátu obsahující certifikát podepisujícího.
 
 Více informací viz README.md soubor.
 HereDoc
@@ -29,12 +29,18 @@ if [ "$1" = "--help" ]; then
 fi
 
 DRY_RUN=false
+CERTIFICATE=
 
-while getopts "dh" opt; do
+while getopts "dhc:" opt; do
   case $opt in
   	h)
     	cmd_help
 		exit 0
+      ;;
+    c)
+      if [ -f $OPTARG ] ; then
+      	CERTIFICATE=$OPTARG
+      fi
       ;;
     d)
       DRY_RUN=true
@@ -42,11 +48,25 @@ while getopts "dh" opt; do
     \?)
       echo "Nesprávný parametr: -$OPTARG" >&2
       ;;
+    :)
+      echo "Parametr -$OPTARG vyžaduje hodnotu" >&2
+      exit 1
+      ;;
   esac
 done
 
-DOCUMENT=`zenity --file-selection --title="Dokument k podpisu"`
-CERTIFICATE=`zenity --file-selection --title="Podpisový certifikát v PEM formátu"`
+shift $((OPTIND-1))
+
+if [ -n "$1" ] && [ -f "$1" ] ; then
+  DOCUMENT="$1"
+else
+  DOCUMENT=`zenity --file-selection --title="Dokument k podpisu"`
+fi
+
+if [ -z "$CERTIFICATE" ] ; then
+	CERTIFICATE=`zenity --file-selection --title="Podpisový certifikát v PEM formátu"`
+fi
+
 COMPRESS=
 ENGINE=
 

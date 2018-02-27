@@ -12,11 +12,11 @@ v souboru se stejným názvem a cestou jako odesílaný soubor jen s přidaným
 prefixem "potvrzeni-".
 
 Použití:
-    $PROGRAM
-        Spustí program v režimu grafického průvodce.
-    $PROGRAM [parametry] [podepsaný soubor k odeslání na podatelnu]
-        Zatím neimplementováno.
-    $PROGRAM -d
+    $PROGRAM [parametry] [podepsaný soubor k odeslání]
+        Žádný parametr ani samotný odesílaný soubor není povinný.
+        Hodnoty potřebných parametrů nezadaných z příkazové
+        řádky budou zjištěny otázkami v grafickém průvodci.
+    $PROGRAM -d [parametry] [podepsaný soubor k odeslání]
     	  Dry run mód. Vypisuje všechny prováděné příkazy
         na standardní výstup, ale nevykonává je.
 Parametry:
