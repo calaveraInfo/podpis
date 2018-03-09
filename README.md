@@ -124,13 +124,34 @@ Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`
 
 ## Popis celých scénářů
 
+### Vytvoření osobního kvalifikovaného podpisu u ICA
+
+1. Vygenerovat privátní klíč a žádost o certifikát pomocí `zadost-vytvoreni.sh`.
+2. Odnést žádost (soubor s příponou .req) na USB disku na [některé z validačních míst][ica-validace].
+    - Prokázat tam totožnost podle požadavků.
+    - Prokázat oprávněnost všech titulů uvedených v žádosti příslušnými diplomy nebo jejich uvedením v dokladech totožnosti.
+    - Ujistit se, že k podpisu bude vygenerován i [identifikátor MPSV][ik].
+3. Stáhnout si z veřejného rejstříku (nebo ze zaslaného mailu) podepsaný certifikát.
+
+### Vytvoření zaměstnaneckého podpisu u PostSignum
+
+1. Avizovat jménem firmy novou žádost o zaměstnanecký podpis na stránkách PostSignum.
+2. Vygenerovat privátní klíč a žádost o certifikát pomocí `zadost-vytvoreni.sh`.
+3. Odnést žádost (soubor s příponou .req) na USB disku do některé pobočky [CzechPoint][czechpoint].
+    - Prokázat tam totožnost podle požadavků.
+    - Pozor, pracovníci velké části CzechPoint poboček věcem okolo digitálního podpisu vůbec nerozumí a bojí se ho. V případě zaměstnaneckého podpisu je potřeba dát pozor alespoň na to, aby v počítači otevřeli nejdřív avízo z firmy (podané online) a až k něm přidali samotnou žádost. Otevření žádosti bez kontextu firmy skončí chybou, kterou neumí řešit ani na technické podpoře.
+3. Stáhnout si z veřejného rejstříku (nebo ze zaslaného mailu) podepsaný certifikát.
+
 ### Podání elektronického formuláře na Finanční Správu
 
 1. Vyplnit formulář na [daňovém portálu FS][dpfs].
 2. Zvolit v menu formuláře možnost "Uložit pracovní verzi".
-3. Podepsat stažený soubor pomocí `podani-fs-podpis-kartou.sh`.
+3. Podepsat stažený soubor pomocí `podani-fs-podpis.sh`.
 4. Odeslat podepsaný soubor pomocí `podani-fs-odeslani.sh`
 
+[czechpoint]: http://www.czechpoint.cz/
+[ik]: http://www.ica.cz/Casto-kladene-otazky
+[ica-validace]: http://www.ica.cz/Pobocky-Registracni-autority
 [cssz osvc]: http://www.cssz.cz/cz/e-podani/ke-stazeni/e-podani-OSVC/e-podani-OSVC.htm
 [cssz osvc dev]: http://www.cssz.cz/cz/e-podani/pro-vyvojare/definice-druhu-e-podani/osvc/
 [dokumentace cssz]: http://www.cssz.cz/cz/e-podani/pro-vyvojare/
