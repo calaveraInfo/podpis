@@ -27,7 +27,7 @@ Základem důvěry v digitální podpis je tzv. certifikát, což je dokument (s
 
 Digitální podpis je pak de facto jen připojení veřejného klíče k podepisovanému souboru. Specialita toho připojení (a celá magie digitálního podpisu) je v tom, že je matematicky zajištěno, že ho tím "správným" způsobem dokáže provést jen ten, kdo vlastní odpovídající privátní klíč.
 
-Rekapitulace: nikdo jiný než majitel privátního klíče nemůže připojit k dokumentu veřejný klíč "správným" způsobem. Protože navíc na fyzickou identitu majitele toho veřejného klíče vystavila důvěryhodná autorita certifikát, je to důkaz, že daný soubor byl vědomě podepsán konkrétním člověkem.
+Rekapitulace: nikdo jiný než majitel privátního klíče nemůže připojit k dokumentu veřejný klíč "správným" způsobem. Protože navíc na fyzickou identitu majitele toho veřejného klíče vystavila důvěryhodná autorita certifikát, věříme, že daný soubor byl vědomě podepsán konkrétním člověkem aniž bychom potřebovali ten podpis dopředu znát.
 
 ## Úložiště klíčů
 
