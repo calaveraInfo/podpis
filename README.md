@@ -1,12 +1,8 @@
 # About (EN)
 [Qualified digital signature][qualified] is considered equal to physical signature by laws of the Czech Republic and probably other European countries. It can be used for communication with many national authorities to digitize some paperwork like taxes, social security etc. Although it is based on standard X509 certificates, majority of manuals and directions from Czech authorities are based on proprietary technologies with bad reputation (java applets, explorer 10, activex etc.). This repo explores the possibilities of using more credible opensource tools instead. As it is intended for Czech audience only, the rest of the document and the project itself is in Czech language.
 
-This is a continuation of work started in [this document][gist] after it became clear that it would be better to put the knowledge into actual working scripts instead of plain text.
-
 # Úvod (CS)
 [Kvalifikovaný digitální podpis][qualified] je českými a pravděpodobně i jinými evropskými zákony považován za ekvivalentní podpisu fyzickému. Může být mimo jiné použit i k digitálnímu vyřízení některých úředních povinností jako například daně, sociálka a podobně. Ačkoli je založen na standardních X509 certifikátech, většina návodů a instrukcí z úřadů je založena na proprietárních technologiích s nevalnou pověstí (java applety, explorer 10, activex prvky atd.). Tento repositář prozkoumává možnosti využít místo nich spolehlivější open source nástroje.
-
-Toto je pokračování práce započaté v [tomto dokumentu][gist] poté, co začalo být jasné, že bude lepší vkládat vědomosti do reálně funkčních skriptů místo prostého textu.
 
 # Status a kontribuce
 
@@ -15,40 +11,6 @@ Aktuálně je projekt v experimentální fázi, doporučuji ho používat jen kd
 Projekt nemá žádnou roadmapu, pracuji jen na věcech, které sám potřebuji a když je potřebuji. Nahlášené bugy a náměty na vylepšení ale budou brány v potaz.
 
 Jakýkoli pull request s opravou, vylepšením nebo novými scénáři použití je vítaný.
-
-# Nutné minimum vědomostí o elektronickém podpisu
-
-Digitální podpis se skládá ze dvou částí (říká se jim klíče):
-
-- Privátní klíč: tento klíč se nesmí dostat do ruky nikomu jinému, než majiteli podpisu.
-- Veřejný klíč: tento klíč je veřejně známá informace.
-
-Základem důvěry v digitální podpis je tzv. certifikát, což je dokument (soubor), který obsahuje veřejný klíč a k němu informaci o fyzické identitě toho, kdo se s ním podepisuje. Certifikátem se tento dokument stává ve chvíli, kdy je takový dokument sám digitálně podepsán nějakou všeobecně známou autoritou. Komukoli stačí, aby znal a důvěřoval podpisu jedné takové všeobecně známé autority a může pak důvěřovat ve fyzickou identitu libovolného podpisu, ke kterému existuje certifikát podepsaný takovou autoritou. Tomuto schématu tranzitivního přenášení důvěry od autorit k neznámým cizincům se říká Public Key Infrastructure (PKI).
-
-Digitální podpis je pak de facto jen připojení veřejného klíče k podepisovanému souboru. Specialita toho připojení (a celá magie digitálního podpisu) je v tom, že je matematicky zajištěno, že ho tím "správným" způsobem dokáže provést jen ten, kdo vlastní odpovídající privátní klíč.
-
-Rekapitulace: nikdo jiný než majitel privátního klíče nemůže připojit k dokumentu veřejný klíč "správným" způsobem. Protože navíc na fyzickou identitu majitele toho veřejného klíče vystavila důvěryhodná autorita certifikát, věříme, že daný soubor byl vědomě podepsán konkrétním člověkem aniž bychom potřebovali ten podpis dopředu znát.
-
-## Úložiště klíčů
-
-Z předchozího je vidět, že celá důvěra stojí na závazku majitele podpisu za žádných okolností nevydat nikomu jinému svůj privátní klíč. Proto je uložení privátního klíče nejdůležitější pro bezpečnost digitálního podpisu. Principiálně existují tyto možnosti:
-
-- Uložit privátní klíč do souboru. V takovém případě musí být takový soubor zaheslovaný (podobně jako například zaheslovaný zip) a při každém použití klíče (podpisu) je potřeba heslo zadat. Každý soubor je ale z principu kdykoli možné nepozorovaně zkopírovat a heslo je možné odposlechnout a proto existuje bezpečnější varianta:
-- Uložit privátní klíč na čipovou kartu. Bezpečnost této varianty spočívá v tom, že privátní klíč klíč nikdy čipovou kartu neopustí - celý podpis probíhá přímo na kartě a počítač dostane až výsledek podpisu, nikoli samotný klíč. K možnosti podepsat něco něčím jménem je proto potřeba fyzicky čipovou kartu zcizit, což se dá velmi rychle zjistit a zabránit zneužití odvoláním platnosti podpisu (takzvaně revokovat certifikát).
-- Čím dál častěji jsou počítače vybaveny součástkami, které fungují stejně, jako čipová karta, jen jsou napevno fyzicky spojeny s konkrétním počítačem.
-- Úložiště certifikátů a klíčů může být systémová služba operačního systému, která funguje jeko jednotné rozhraní k různým druhům úložišť, aby se sjednotil způsob práce s nimi. V případě Windows navíc tato služba příliš nerozlišuje mezi privátním a veřejným klíčem a certifikátem a vše dohromady označuje prostě jako certifikát, takže dohromady je trochu obtížné si při práci s ní udělat jasný mentální model problematiky. Z principů popsaných doteď ale nijak vybočit nemůže.
-
-## Vytvoření podpisu
-
-Autority, kterým úředně důvěřuje český stát, jsou vyhlašovány [vyhláškou][autority]. Zřídit si u nich digitální podpis znamená principálně vždy následující kroky:
-
-1. Vygenerovat dvojici privátního a veřejného klíče.
-2. Vytvořit žádost o vystavení certifikátu. Žádost je prakticky přímo onen dokument, který se po podpisu autoritou stane certifikátem.
-3. Předat žádost autoritě.
-4. Prokázat svojí totožnost udávanou v žádosti na ověřovacím místě autority.
-5. Autorita žádost podepíše, tím z ní udělá plnohodnotný certifikát a ten vystaví veřejně ve svém registru (a případně zašle zpět žadateli).
-
-Tyto kroky mohou být realizovány různě. Je možné například na web stránkách autority jednou akcí absolvovat kroky 1-3 dohromady. Klíče se ale mohou generovat i zcela offline a žádost je možné předat třeba na USB disku, pak jsou většinou spojeny kroky 3-5 do jedné osobní návštěvy. Za pozornost také stojí, že autorita z principu nepotřebuje znát privátní klíč (certifikát vystavuje na veřejný klíč), ale může úschovu privátního klíče nabízet jako doplňkovou službu. Například pro případ jeho ztráty nebo protože službu nabízí včetně vydání čipové karty s podpisem. Možností jak kroky poskládat je prostě mnoho, ale vždy se budou nějak mapovat na výše uvedený seznam.
 
 # Instalace
 
@@ -129,9 +91,9 @@ Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`
 1. Vygenerovat privátní klíč a žádost o certifikát pomocí `zadost-vytvoreni.sh`.
 2. Odnést žádost (soubor s příponou .req) na USB disku na [některé z validačních míst][ica-validace].
     - Prokázat tam totožnost podle požadavků.
-    - Prokázat oprávněnost všech titulů uvedených v žádosti příslušnými diplomy nebo jejich uvedením v dokladech totožnosti.
+    - Prokázat oprávněnost všech akademických titulů uvedených v žádosti příslušnými diplomy nebo jejich uvedením v dokladech totožnosti.
     - Ujistit se, že k podpisu bude vygenerován i [identifikátor MPSV][ik].
-3. Stáhnout si z veřejného rejstříku (nebo ze zaslaného mailu) podepsaný certifikát.
+3. Stáhnout si z veřejného rejstříku (nebo ze zaslaného mailu) vystavený certifikát.
 
 ### Vytvoření zaměstnaneckého podpisu u PostSignum
 
@@ -139,8 +101,8 @@ Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`
 2. Vygenerovat privátní klíč a žádost o certifikát pomocí `zadost-vytvoreni.sh`.
 3. Odnést žádost (soubor s příponou .req) na USB disku do některé pobočky [CzechPoint][czechpoint].
     - Prokázat tam totožnost podle požadavků.
-    - Pozor, pracovníci velké části CzechPoint poboček věcem okolo digitálního podpisu vůbec nerozumí a bojí se ho. V případě zaměstnaneckého podpisu je potřeba dát pozor alespoň na to, aby v počítači otevřeli nejdřív avízo z firmy (podané online) a až k něm přidali samotnou žádost. Otevření žádosti bez kontextu firmy skončí chybou, kterou neumí řešit ani na technické podpoře.
-3. Stáhnout si z veřejného rejstříku (nebo ze zaslaného mailu) podepsaný certifikát.
+    - Pozor, pracovníci velké části CzechPoint poboček věcem okolo digitálního podpisu vůbec nerozumí a bojí se ho. V případě zaměstnaneckého podpisu je potřeba dát pozor alespoň na to, aby v počítači otevřeli nejdřív avízo z firmy (podané online) a až k němu přidali samotnou žádost. Otevření žádosti bez kontextu firmy skončí chybou, kterou neumí řešit ani na technické podpoře.
+3. Stáhnout si z veřejného rejstříku (nebo ze zaslaného mailu) vystavený certifikát.
 
 ### Podání elektronického formuláře na Finanční Správu
 
@@ -148,6 +110,54 @@ Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`
 2. Zvolit v menu formuláře možnost "Uložit pracovní verzi".
 3. Podepsat stažený soubor pomocí `podani-fs-podpis.sh`.
 4. Odeslat podepsaný soubor pomocí `podani-fs-odeslani.sh`
+
+# Nutné minimum vědomostí o elektronickém podpisu
+
+## Klíče
+
+Digitální podpis se skládá ze dvou částí (říká se jim klíče):
+
+- Veřejný klíč: tento klíč je veřejně známá informace.
+- Privátní klíč: tento klíč se nesmí dostat do ruky nikomu jinému, než majiteli podpisu. Ačkoli jsou spolu privátní a veřejný klíč matematicky jednoznačně svázány, je také matematicky zajištěno, že privátní klíč nelze z veřejného nijak odhadnout ani odvodit.
+
+## Certifikát
+
+Výše uvedené klíče jsou ve skutečnosti pouze dlouhá náhodná čísla, kterých si může kdo chce vymyslet kolik chce. Abychom věřili, že nějaké takové klíče mají význam opravdového fyzického podpisu, musí k nim být vyroben takzvaný "certifikát". Certifikát v tomto kontextu není žádný termínus technikus, ale skutečně v původním slova smyslu **osvědčení**. Konkrétně je to osvědčení o tom, že konkrétní veřejný klíč reprezentuje konkrétní fyzickou osobu. Instituce, která ověřuje fyzickou totožnost a na jejím základě tyto certifikáty vydává, se nazývá certifikační autorita.
+
+Fakticky je certifikát běžný soubor, kde je ve standardizovaném formátu zapsán veřejný klíč a k němu osobní údaje člověka, kterému patří. Kouzlo je v tom, že tento soubor je sám digitálně podepsán podpisem certifikační autority, která tak potvrzuje pravost údajů v něm uvedených. Podpis samotné certifikační autority se považuje za *veřejně známý*, takže je nutné mu slepě věřit, resp. je podtřeba si ho jednorázově stáhnout z web stránek autority, ručně jej importovat do operačního systému a označit jako důvěryhodný. Pak je ale možné důvěřovat ve fyzickou identitu libovolného podpisu, ke kterému existuje certifikát podepsaný takovou autoritou. Tomuto schématu tranzitivního přenášení důvěry od autorit k předem neznámým cizincům se říká Public Key Infrastructure. Odtud plyne někdy používaný termín PKI certifikáty.
+
+## Podpis
+
+Digitální podpis je pak ve skutečnosti jen připojení veřejného klíče k podepisovanému souboru. Připojení musí být ale provedeno speciálním způsobem, který matematicky zajišťuje, že jej správně dokáže udělat jen ten, kdo vlastní odpovídající privátní klíč. K podepisovanému souboru se většinou také rovnou připojí certifikát, aby jej druhá strana nemusela shánět v nějakých veřejných registrech.
+
+Důvěru v digitální podpis tedy odvozujeme takto: nikdo jiný než majitel privátního klíče nemůže připojit k dokumentu veřejný klíč ověřitelně "správným" způsobem. Na fyzickou identitu majitele toho veřejného klíče vystavila důvěryhodná autorita certifikát a proto věříme, že daný soubor byl vědomě podepsán konkrétním člověkem aniž bychom potřebovali ten podpis dopředu znát nebo to ověřovat bokem.
+
+## Úložiště klíčů
+
+Z předchozího je vidět, že celá důvěra stojí na závazku majitele podpisu za žádných okolností nevydat nikomu jinému svůj privátní klíč. Proto je uložení privátního klíče nejdůležitější pro bezpečnost digitálního podpisu. Principiálně existují tyto možnosti:
+
+- Uložit privátní klíč do souboru. V takovém případě musí být takový soubor zaheslovaný (podobně jako například zaheslovaný zip) a při každém použití klíče (podpisu) je potřeba heslo zadat. Každý soubor je ale z principu kdykoli možné nepozorovaně zkopírovat a heslo je možné odposlechnout a proto existuje bezpečnější varianta:
+- Uložit privátní klíč na čipovou kartu. Bezpečnost této varianty spočívá v tom, že privátní klíč nikdy čipovou kartu neopustí - celý podpis probíhá přímo na kartě a počítač dostane až výsledek podpisu, nikoli samotný klíč. K možnosti podepsat něco něčím jménem je proto potřeba fyzicky čipovou kartu zcizit, což se dá velmi rychle zjistit a zabránit zneužití odvoláním platnosti podpisu (odborně: revokovat certifikát).
+- Čím dál častěji jsou počítače vybaveny součástkami, které fungují stejně, jako čipová karta, ale jsou přímo součástí počítače. Souhrně se jim říká TPM (Trusted Platform Module).
+- Úložiště certifikátů a klíčů může být systémová služba operačního systému, která funguje jako jednotné rozhraní k různým druhům úložišť, aby se sjednotil způsob práce s nimi. V případě Windows navíc tato služba příliš nerozlišuje mezi privátním a veřejným klíčem a certifikátem a vše dohromady označuje prostě jako certifikát. Vede to ke vzniku nonsensuálních termínů jako např. "veřejná část certifikátu" a jiným zmatkům, ale z principů popsaných doteď to nijak vybočit nemůže.
+
+## Žádost o certifikát
+
+Autority, kterým úředně důvěřuje český stát, jsou vyhlašovány [vyhláškou][autority]. Zřídit si u nich digitální podpis znamená principálně vždy následující kroky:
+
+1. Vygenerovat dvojici privátního a veřejného klíče.
+2. Vytvořit žádost o vystavení certifikátu. Žádost je ve skutečnosti většinou přímo onen soubor, který se po podpisu autoritou stane certifikátem.
+3. Předat žádost autoritě.
+4. Prokázat svojí totožnost udávanou v žádosti na ověřovacím místě autority.
+5. Autorita žádost podepíše, tím z ní udělá plnohodnotný certifikát a ten vystaví veřejně ve svém registru (a případně zašle zpět žadateli).
+
+Tyto kroky mohou být realizovány různě. Je možné například na web stránkách autority jednou akcí absolvovat kroky 1-3 dohromady. Klíče se ale mohou generovat i zcela offline a žádost je možné předat třeba na USB disku, pak jsou většinou spojeny kroky 3-5 do jedné osobní návštěvy. Za pozornost také stojí, že autorita z principu nepotřebuje znát privátní klíč (certifikát vystavuje na veřejný klíč), ale může úschovu privátního klíče nabízet jako doplňkovou službu. Například pro případ jeho ztráty nebo protože službu nabízí včetně vydání čipové karty s podpisem. Možností jak kroky poskládat je prostě mnoho, ale vždy se budou nějak mapovat na výše uvedený seznam.
+
+## Standardizace
+
+Všechny části použití digitálního podpisu jsou standardizovány (norma X.509). Mělo by tedy platit, že je možné používat libovolný software k vytvoření, použití a komunikaci digitálního podpisu s libovolnou protistranou i autoritou. Návody na stránkách autorit nebo státních úřadů s využitím konkrétních aplikací proto mohou být formálně maximálně doporučené, nikoli exkluzivní postupy.
+
+Bohužel kromě čistě technických aspektů podpisu existuje daleko víc netechnických požadavků (např. na informace obsažené v certifikátu, obsah podepisovaného souboru atd.), které se mohou lišit pro každé z různých použití podpisu. Tento projekt má za cíl zdokumentovat právě tuto mezeru mezi jasně definovanými standardy digitálního podpisu a dodatečnými požadavky jednotlivých scénářů použití.
 
 [czechpoint]: http://www.czechpoint.cz/
 [ik]: http://www.ica.cz/Casto-kladene-otazky
