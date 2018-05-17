@@ -118,9 +118,9 @@ Správný identifikátor podle předchozí ukázky by tedy byl například `0:2`
 Digitální podpis se skládá ze dvou základních částí, kterým se říká klíče:
 
 - **Veřejný klíč**: tento klíč je veřejně známá informace.
-- **Privátní klíč**: tento klíč se nesmí dostat do ruky nikomu jinému, než majiteli podpisu. Ačkoli jsou spolu privátní a veřejný klíč matematicky jednoznačně svázány, je také matematicky zajištěno, že privátní klíč nelze z veřejného nijak odhadnout ani odvodit.
+- **Privátní klíč**: tento klíč se nesmí dostat do ruky nikomu jinému, než majiteli podpisu.
 
-Privátní a veřejný klíč jsou matematicky jednoznačně svázány a tvoří tzv. **keypair**. 
+Privátní a veřejný klíč jsou matematicky jednoznačně svázány a tvoří tzv. **keypair**. Zároveň je ale matematicky zajištěno, že privátní klíč nelze z veřejného nijak odhadnout ani odvodit.
 
 ## Certifikát
 
