@@ -68,8 +68,7 @@ if [ -z "$CERTIFICATE" ] ; then
 fi
 
 if !(openssl x509 -in $CERTIFICATE -text | grep -q qcStatements) ; then
-	echo 'Použitý certifikát není kvalifikovaný' >&2
-	exit 1
+	echo 'Upozornění: Použitý certifikát není kvalifikovaný, podání se pravděpodobně nepodaří' >&2
 fi
 
 COMPRESS=
