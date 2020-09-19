@@ -67,6 +67,10 @@ if [ -z "$CERTIFICATE" ] ; then
 	CERTIFICATE=`zenity --file-selection --title="Podpisový certifikát v PEM formátu"`
 fi
 
+if !(openssl x509 -in $CERTIFICATE -text | grep -q qcStatements) ; then
+	echo 'Upozornění: Použitý certifikát není kvalifikovaný, podání se pravděpodobně nepodaří' >&2
+fi
+
 COMPRESS=
 ENGINE=
 
